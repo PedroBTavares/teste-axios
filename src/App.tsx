@@ -1,5 +1,11 @@
+import Form from "./components/Form"
+
+import "../styles/style.css"
+
 export default function App(){
   return(
-    <h1>Hello, word!</h1>
+    <main>
+      <Form />
+    </main>
   )
 }

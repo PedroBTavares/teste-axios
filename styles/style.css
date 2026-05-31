@@ -1,0 +1,55 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    border-color: #DDD;
+    margin: 0;
+    background-color: #222;
+    color: #DDD;
+}
+
+main{
+    padding: 10px;
+}
+
+h2{
+    border-bottom: 1px solid #DDD;
+    padding: 5px;
+    margin: 15px 0;
+}
+
+.form{
+    width: 50%;
+    max-width: 750px;
+    padding: 10px;
+    border: 1px solid #DDD;
+}
+
+.campo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.campo label{
+    flex: 0 1 50%;
+}
+
+.campo input{
+    flex: 0 1 175px;
+    align-self: center;
+    padding: 2px;
+    margin-right: auto;
+}
+
+input#name{
+    flex: 0 1 250px;
+}
+
+button{
+    padding: 5px;
+}
+
+button:hover{
+    background-color: #333;
+}
