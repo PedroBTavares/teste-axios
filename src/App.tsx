@@ -1,11 +1,32 @@
-import Form from "./components/Form"
+import { BrowserRouter, Routes, Route} from "react-router";
 
-import "../styles/style.css"
+import Home from "./pages/Home";
+import Registration from "./pages/Registration";
+import MyProducts from "./pages/MyProducts";
+
+import "../styles/style.css";
 
 export default function App(){
   return(
-    <main>
-      <Form />
-    </main>
-  )
+    <BrowserRouter>
+      <Routes>
+
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/Registration"
+          element={<Registration />}
+        />
+
+        <Route
+          path="/MyProducts"
+          element={<MyProducts />}
+        />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }

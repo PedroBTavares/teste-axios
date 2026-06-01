@@ -69,50 +69,46 @@ export default function Form() {
     }
 
     return (
-        <section>
-            <h2>Cadastro de produtos:</h2>
+        <form className="form" onSubmit={submit}>
 
-            <form className="form" onSubmit={submit}>
+            <div className="campo">
+                <label htmlFor="name">Nome do produto:</label>
+                <input
+                    type="text" id="name"
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
 
-                <div className="campo">
-                    <label htmlFor="name">Nome do produto:</label>
-                    <input
-                        type="text" id="name"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
+            <div className="campo">
+                <label htmlFor="sale-price">Preço de venda do produto para o cliente:</label>
+                <input
+                    type="number" id="sale-price" min="0.00" step="0.01"
+                    onBlur={(e) => adjust(e.target, 100, true, setSalePrice)}
+                    onChange={(e) => setSalePrice(Number.parseFloat(e.target.value))}
+                />
+            </div>
 
-                <div className="campo">
-                    <label htmlFor="sale-price">Preço de venda do produto para o cliente:</label>
-                    <input
-                        type="number" id="sale-price" min="0.00" step="0.01"
-                        onBlur={(e) => adjust(e.target, 100, true, setSalePrice)}
-                        onChange={(e) => setSalePrice(Number.parseFloat(e.target.value))}
-                    />
-                </div>
+            <div className="campo">
+                <label htmlFor="purchase-price">Preço de compra do produto do fornecedor:</label>
+                <input
+                    type="number" id="purchase-price" min="0.00" step="0.01"
+                    onBlur={(e) => adjust(e.target, 100, true, setPurchasePrice)}
+                    onChange={(e) => setPurchasePrice(Number.parseFloat(e.target.value))}
+                />
+            </div>
 
-                <div className="campo">
-                    <label htmlFor="purchase-price">Preço de compra do produto do fornecedor:</label>
-                    <input
-                        type="number" id="purchase-price" min="0.00" step="0.01"
-                        onBlur={(e) => adjust(e.target, 100, true, setPurchasePrice)}
-                        onChange={(e) => setPurchasePrice(Number.parseFloat(e.target.value))}
-                    />
-                </div>
+            <div className="campo">
+                <label htmlFor="stock-quantity">Quantidade do produto em estoque:</label>
+                <input
+                    type="number" id="stock-quantity" step="1"
+                    onBlur={(e) => adjust(e.target, 1, false, setStockQuantity)}
+                    onChange={(e) => setStockQuantity(Number.parseInt(e.target.value))}
+                />
+            </div>
 
-                <div className="campo">
-                    <label htmlFor="stock-quantity">Quantidade do produto em estoque:</label>
-                    <input
-                        type="number" id="stock-quantity" step="1"
-                        onBlur={(e) => adjust(e.target, 1, false, setStockQuantity)}
-                        onChange={(e) => setStockQuantity(Number.parseInt(e.target.value))}
-                    />
-                </div>
+            <button type="submit">enviar</button>
+            <button type="reset">limpar</button>
 
-                <button type="submit">enviar</button>
-                <button type="reset">limpar</button>
-
-            </form>
-        </section>
-    )
+        </form>
+    );
 }

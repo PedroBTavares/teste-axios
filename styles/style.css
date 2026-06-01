@@ -7,6 +7,44 @@
     color: #DDD;
 }
 
+header{
+    padding: 20px;
+    border-bottom: 1px solid #EEE;
+    background-color: #444;
+    color: #EEE;
+}
+
+h1{
+    margin-bottom: 25px;
+    background-color: #444;
+    color: #EEE;
+}
+
+.link{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.link:hover{
+    background-color: #000;
+    transition: 0.3s;
+}
+
+.description{
+    max-width: 750px;
+    padding: 10px;
+    border: 1px solid #DDD;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: 0 0 10px 5px #0008;
+    background-color: #181818;
+}
+
+.description *{
+    background-color: #181818;
+}
+
 main{
     padding: 10px;
 }
@@ -22,6 +60,12 @@ h2{
     max-width: 750px;
     padding: 10px;
     border: 1px solid #DDD;
+    background-color: #181818;
+    box-shadow: 0 0 10px 5px #0008;
+}
+
+.form *{
+    background-color: #181818;
 }
 
 .campo{
@@ -52,4 +96,24 @@ button{
 
 button:hover{
     background-color: #333;
+}
+
+table{
+    border-collapse: collapse;
+    box-shadow: 0 0 10px 5px #0008;
+    margin: auto;
+}
+
+td, th{
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #DDD;
+}
+
+th{
+    background-color: #111;
+}
+
+td{
+    background-color: #181818;
 }
