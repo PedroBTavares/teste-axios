@@ -87,7 +87,7 @@ h2{
 }
 
 input#name{
-    flex: 0 1 250px;
+    flex-basis: 250px;
 }
 
 button{
@@ -101,7 +101,6 @@ button:hover{
 table{
     border-collapse: collapse;
     box-shadow: 0 0 10px 5px #0008;
-    margin: auto;
 }
 
 td, th{

@@ -1,9 +1,4 @@
-import api from "../services/api.ts";
-
-const response = await api.get("/products/");
-const products = response.data;
-
-export default function Table(){
+export default function Table(props){
     return(
         <div>
             <table>
@@ -17,7 +12,7 @@ export default function Table(){
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => {
+                    {props.products.map((product) => {
                         const {
                             "id": id,
                             "name": name,
@@ -27,7 +22,7 @@ export default function Table(){
                         } = product;
                         
                         return(
-                            <tr>
+                            <tr key={id}>
                                 <td>{id}</td>
                                 <td>{name}</td>
                                 <td>{salePrice}</td>
