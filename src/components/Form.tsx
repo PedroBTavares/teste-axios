@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import api from "../services/api";
 
 export default function Form() {
@@ -7,14 +7,20 @@ export default function Form() {
     const [purchasePrice, setPurchasePrice] = useState<number|null>(null);
     const [stockQuantity, setStockQuantity] = useState<number|null>(null);
 
+    const nameRef = useRef<null|HTMLInputElement>(null);
+    const salePriceRef = useRef<null|HTMLInputElement>(null);
+    const purchasePriceRef = useRef<null|HTMLInputElement>(null);
+    const stockQuantityRef = useRef<null|HTMLInputElement>(null);
+
     function submit(e: React.ChangeEvent<HTMLFormElement>): void {
         e.preventDefault();
 
-        const inputs:HTMLInputElement[] = [];
-        inputs.push(document.getElementById("name") as HTMLInputElement);
-        inputs.push(document.getElementById("sale-price") as HTMLInputElement);
-        inputs.push(document.getElementById("purchase-price") as HTMLInputElement);
-        inputs.push(document.getElementById("stock-quantity") as HTMLInputElement);
+        const inputs:HTMLInputElement[] = [
+            nameRef.current as HTMLInputElement,
+            salePriceRef.current as HTMLInputElement,
+            purchasePriceRef.current as HTMLInputElement,
+            stockQuantityRef.current as HTMLInputElement,
+        ];
 
         for(const input of inputs){
             if(input.value === ""){
@@ -74,7 +80,8 @@ export default function Form() {
             <div className="campo">
                 <label htmlFor="name">Nome do produto:</label>
                 <input
-                    type="text" id="name"
+                    type="text" id="name" required
+                    ref={nameRef}
                     onChange={(e) => setName(e.target.value)}
                 />
             </div>
@@ -82,7 +89,8 @@ export default function Form() {
             <div className="campo">
                 <label htmlFor="sale-price">Preço de venda do produto para o cliente:</label>
                 <input
-                    type="number" id="sale-price" min="0.00" step="0.01"
+                    type="number" id="sale-price" min="0.00" step="0.01" required
+                    ref={salePriceRef}
                     onBlur={(e) => adjust(e.target, 100, true, setSalePrice)}
                     onChange={(e) => setSalePrice(Number.parseFloat(e.target.value))}
                 />
@@ -91,7 +99,8 @@ export default function Form() {
             <div className="campo">
                 <label htmlFor="purchase-price">Preço de compra do produto do fornecedor:</label>
                 <input
-                    type="number" id="purchase-price" min="0.00" step="0.01"
+                    type="number" id="purchase-price" min="0.00" step="0.01" required
+                    ref={purchasePriceRef}
                     onBlur={(e) => adjust(e.target, 100, true, setPurchasePrice)}
                     onChange={(e) => setPurchasePrice(Number.parseFloat(e.target.value))}
                 />
@@ -100,7 +109,8 @@ export default function Form() {
             <div className="campo">
                 <label htmlFor="stock-quantity">Quantidade do produto em estoque:</label>
                 <input
-                    type="number" id="stock-quantity" step="1"
+                    type="number" id="stock-quantity" step="1" required
+                    ref={stockQuantityRef}
                     onBlur={(e) => adjust(e.target, 1, false, setStockQuantity)}
                     onChange={(e) => setStockQuantity(Number.parseInt(e.target.value))}
                 />

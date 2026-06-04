@@ -1,4 +1,19 @@
-export default function Table(props){
+import Options from "./Options";
+
+interface Product {
+  "id": number;
+  "name": string;
+  "sale_price": number;
+  "purchase_price": number;
+  "stock_quantity": number;
+}
+
+interface Properties {
+    products: Product[];
+    setOptions: Function;
+}
+
+export default function Table({products, setOptions}:Properties){
     return(
         <div>
             <table>
@@ -9,10 +24,11 @@ export default function Table(props){
                         <th><abbr title="Preço de venda para o cliente">Preço de venda</abbr></th>
                         <th><abbr title="Preço de compra do fornecedor">Preço de compra</abbr></th>
                         <th>Quantidade em estoque</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.products.map((product) => {
+                    {products.map((product) => {
                         const {
                             "id": id,
                             "name": name,
@@ -22,12 +38,18 @@ export default function Table(props){
                         } = product;
                         
                         return(
-                            <tr key={id}>
+                            <tr>
                                 <td>{id}</td>
                                 <td>{name}</td>
                                 <td>{salePrice}</td>
                                 <td>{purchasePrice}</td>
                                 <td>{stockQuantity}</td>
+                                <td
+                                    className="clickable"
+                                    onClick={() => setOptions(<Options productName={name} setOptions={setOptions} />)}
+                                >
+                                        ...
+                                </td>
                             </tr>
                         )
                     })}

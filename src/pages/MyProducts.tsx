@@ -24,7 +24,7 @@ async function getProducts(setProducts: Function, column: "id"|"name", search: s
         }
 
         setProducts(response.data);
-    } catch (err) {
+    } catch (err: any) {
         if(err.status === 404){
             alert("Produto não encontrado!");
         }
@@ -36,30 +36,42 @@ export default function MyProducts(){
     const [products, setProducts] = useState([]);
     const [id, setId] = useState("");
     const [name, setName] = useState("");
+    const [options, setOptions] = useState<null|React.ReactElement>(null);
 
     useEffect(() => {
         async function fetch() {
-            getProducts(setProducts, "id", id);
+            await getProducts(setProducts, "id", id);
         }
-        fetch();
+
+        try {
+            fetch();
+        } catch (err) {
+            throw new Error(String(err));
+        }
     }, [id])
 
     useEffect(() => {
         async function fetch() {
-            getProducts(setProducts,"name", name);
+            await getProducts(setProducts,"name", name);
         }
-        fetch();
+
+        try {
+            fetch();
+        } catch (err) {
+            throw new Error(String(err));
+        }
     }, [name])
 
     return(
         <div>
-            <Header className="header" />
+            <Header />
             <main>
                 <h2>Meus Produtos</h2>
                 <Search setId={setId} setName={setName} />
                 {productsChange && <button onClick={() => getProducts(setProducts, "id", "")}>Mostrar todos os produtos</button>}
                 <br />
-                <Table products={products} />
+                <Table products={products} setOptions={setOptions} />
+                {options}
             </main>
         </div>
     )
