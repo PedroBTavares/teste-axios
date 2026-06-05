@@ -11,9 +11,16 @@ interface Product {
 interface Properties {
     products: Product[];
     setOptions: Function;
+    getAllProducts: Function;
 }
 
-export default function Table({products, setOptions}:Properties){
+export default function Table({products, setOptions, getAllProducts}:Properties){
+    function exibOptions(e: React.MouseEvent<HTMLTableCellElement>, name:string, id: number){
+        const position = e.currentTarget.getBoundingClientRect();
+        const y = position?.y as number + window.scrollY;
+
+        setOptions(<Options productName={name} productId={id} setOptions={setOptions} positionY={y} getAllProducts={getAllProducts}/>)
+    }
     return(
         <div>
             <table>
@@ -38,16 +45,13 @@ export default function Table({products, setOptions}:Properties){
                         } = product;
                         
                         return(
-                            <tr>
+                            <tr key={id}>
                                 <td>{id}</td>
                                 <td>{name}</td>
                                 <td>{salePrice}</td>
                                 <td>{purchasePrice}</td>
                                 <td>{stockQuantity}</td>
-                                <td
-                                    className="clickable"
-                                    onClick={() => setOptions(<Options productName={name} setOptions={setOptions} />)}
-                                >
+                                <td className="clickable" onClick={(e) => exibOptions(e, name, id)}>
                                         ...
                                 </td>
                             </tr>

@@ -124,9 +124,8 @@ td{
 
 .options{
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 50vw;
+    transform: translate(-50%, 0);
     padding: 10px;
     border: 1px solid #EEE;
     border-radius: 5px;

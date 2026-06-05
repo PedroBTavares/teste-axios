@@ -38,6 +38,8 @@ export default function MyProducts(){
     const [name, setName] = useState("");
     const [options, setOptions] = useState<null|React.ReactElement>(null);
 
+    const getAllProducts = () => getProducts(setProducts, "id", "");
+
     useEffect(() => {
         async function fetch() {
             await getProducts(setProducts, "id", id);
@@ -68,9 +70,9 @@ export default function MyProducts(){
             <main>
                 <h2>Meus Produtos</h2>
                 <Search setId={setId} setName={setName} />
-                {productsChange && <button onClick={() => getProducts(setProducts, "id", "")}>Mostrar todos os produtos</button>}
+                {productsChange && <button onClick={getAllProducts}>Mostrar todos os produtos</button>}
                 <br />
-                <Table products={products} setOptions={setOptions} />
+                <Table products={products} setOptions={setOptions} getAllProducts={getAllProducts} />
                 {options}
             </main>
         </div>
