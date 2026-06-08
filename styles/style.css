@@ -122,7 +122,7 @@ td{
     cursor: pointer;
 }
 
-.options{
+.options, .confirm-box{
     position: fixed;
     left: 50vw;
     transform: translate(-50%, 0);
@@ -133,7 +133,7 @@ td{
     box-shadow: 0 0 10px 5px #0008;
 }
 
-.options *{
+.options *, .confirm-box *{
     background-color: #444;
 }
 
@@ -143,4 +143,8 @@ td{
     border: 1px solid #EEE;
     margin-bottom: 5px;
     text-align: center;
+}
+
+.confirm-box{
+    top: 50vh;
 }

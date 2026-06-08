@@ -1,15 +1,22 @@
+import { useContext } from "react";
+
 import api from "../services/api";
+
+import { productsContext } from "../pages/MyProducts";
+
+import ConfirmBox from "./ConfirmBox";
 
 interface Properties {
     productName: string;
     productId: number;
-    setOptions: Function;
     positionY: number|undefined;
-    getAllProducts: Function;
 }
 
-export default function Options({productName, productId, setOptions, positionY, getAllProducts}:Properties){
+export default function Options({productName, productId, positionY}:Properties){
+    const {getAllProducts, setOptions, setConfirmBox} = useContext(productsContext);
     async function deleteProduct(){
+        setConfirmBox(<ConfirmBox productName={productName} productId={productId} />);
+
         await api.delete(`/products/${productId}`); 
 
         getAllProducts();

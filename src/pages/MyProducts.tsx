@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, type SetStateAction, type Dispatch, type Context } from "react";
+
+import type { Load } from "../components/Table";
 
 import api from "../services/api.ts";
 
@@ -7,6 +9,14 @@ import Table from "../components/Table";
 import Search from "../components/Search";
 
 let productsChange: boolean = false;
+
+interface ProductsContext {
+    setOptions: Dispatch<SetStateAction<null|React.ReactElement>>;
+    setConfirmBox: Dispatch<SetStateAction<null|React.ReactElement>>;
+    getAllProducts: Function;
+}
+
+let productsContext: Context<ProductsContext>;
 
 async function getProducts(setProducts: Function, column: "id"|"name", search: string) {
     try {
@@ -36,33 +46,51 @@ export default function MyProducts(){
     const [products, setProducts] = useState([]);
     const [id, setId] = useState("");
     const [name, setName] = useState("");
+    const [load, setLoad] = useState<Load>("loading");
     const [options, setOptions] = useState<null|React.ReactElement>(null);
-
-    const getAllProducts = () => getProducts(setProducts, "id", "");
-
-    useEffect(() => {
-        async function fetch() {
-            await getProducts(setProducts, "id", id);
-        }
-
+    const [confirmBox, setConfirmBox] = useState<null|React.ReactElement>(null);
+    
+    const getAllProducts = async () => {
         try {
-            fetch();
+            setLoad("loading");
+            await getProducts(setProducts, "id", "");
+            setLoad("success");
         } catch (err) {
             throw new Error(String(err));
         }
-    }, [id])
-
-    useEffect(() => {
-        async function fetch() {
-            await getProducts(setProducts,"name", name);
-        }
-
-        try {
+    }
+    
+        useEffect(() => {
+            async function fetch() {
+                try {
+                    setLoad("loading");
+                    await getProducts(setProducts, "id", id);
+                    setLoad("success");
+                } catch (err) {
+                    setLoad("erro");
+                    throw new Error(String(err));
+                }
+            }
+    
             fetch();
-        } catch (err) {
-            throw new Error(String(err));
-        }
-    }, [name])
+        }, [id])
+    
+        useEffect(() => {
+            async function fetch() {
+                try {
+                    setLoad("loading");
+                    await getProducts(setProducts, "name", name);
+                    setLoad("success");
+                } catch (err) {
+                    setLoad("erro");
+                    throw new Error(String(err));
+                }
+            }
+    
+            fetch();
+        }, [name])
+
+    productsContext = createContext<ProductsContext>({setOptions, setConfirmBox, getAllProducts});
 
     return(
         <div>
@@ -72,9 +100,11 @@ export default function MyProducts(){
                 <Search setId={setId} setName={setName} />
                 {productsChange && <button onClick={getAllProducts}>Mostrar todos os produtos</button>}
                 <br />
-                <Table products={products} setOptions={setOptions} getAllProducts={getAllProducts} />
-                {options}
+                <Table products={products} load={load} />
+                {options}{confirmBox}
             </main>
         </div>
     )
 }
+
+export { productsContext };

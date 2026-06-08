@@ -1,5 +1,10 @@
 import Options from "./Options";
 
+import loadingGif from "../assets/loading.gif";
+
+import { productsContext } from "../pages/MyProducts";
+import { useContext } from "react";
+
 interface Product {
   "id": number;
   "name": string;
@@ -8,18 +13,21 @@ interface Product {
   "stock_quantity": number;
 }
 
+export type Load = "loading"|"success"|"erro";
+
 interface Properties {
     products: Product[];
-    setOptions: Function;
-    getAllProducts: Function;
+    load: Load;
 }
 
-export default function Table({products, setOptions, getAllProducts}:Properties){
+export default function Table({products, load}:Properties){
+    const {setOptions} = useContext(productsContext);
+    
     function exibOptions(e: React.MouseEvent<HTMLTableCellElement>, name:string, id: number){
         const position = e.currentTarget.getBoundingClientRect();
         const y = position?.y as number + window.scrollY;
 
-        setOptions(<Options productName={name} productId={id} setOptions={setOptions} positionY={y} getAllProducts={getAllProducts}/>)
+        setOptions(<Options productName={name} productId={id} positionY={y} />)
     }
     return(
         <div>
@@ -35,7 +43,9 @@ export default function Table({products, setOptions, getAllProducts}:Properties)
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => {
+                    {load === "loading" ?
+                    <tr><td colSpan={6} ><img src={loadingGif} alt="Carregando..." /></td></tr> :
+                    products.map((product) => {
                         const {
                             "id": id,
                             "name": name,
