@@ -116,8 +116,8 @@ export default function Form() {
                 />
             </div>
 
-            <button type="submit">enviar</button>
-            <button type="reset">limpar</button>
+            <button className="clickable" type="submit">enviar</button>
+            <button className="clickable" type="reset">limpar</button>
 
         </form>
     );

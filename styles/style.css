@@ -90,14 +90,6 @@ input#name{
     flex-basis: 250px;
 }
 
-button{
-    padding: 5px;
-}
-
-button:hover{
-    background-color: #333;
-}
-
 table{
     border-collapse: collapse;
     box-shadow: 0 0 10px 5px #0008;
@@ -115,6 +107,18 @@ th{
 
 td{
     background-color: #181818;
+}
+
+td *{
+    background-color: #181818;
+}
+
+.clickable{
+    padding: 5px;
+    border: 1px solid #EEE;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
 }
 
 .clickable:hover{
@@ -139,12 +143,12 @@ td{
 
 .options li{
     list-style-type: none;
-    padding: 5px;
-    border: 1px solid #EEE;
-    margin-bottom: 5px;
-    text-align: center;
 }
 
 .confirm-box{
+    position: absolute;
+    text-align: center;
     top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
 }

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import api from "../services/api";
 
@@ -14,14 +14,10 @@ interface Properties {
 
 export default function Options({productName, productId, positionY}:Properties){
     const {getAllProducts, setOptions, setConfirmBox} = useContext(productsContext);
+    const [deleteConfirmed, setDeleteConfirmed] = useState<boolean>(false);
+
     async function deleteProduct(){
-        setConfirmBox(<ConfirmBox productName={productName} productId={productId} />);
-
-        await api.delete(`/products/${productId}`); 
-
-        getAllProducts();
-
-        setOptions(null);
+        setConfirmBox(<ConfirmBox productName={productName} productId={productId} setDeleteConfirmed={setDeleteConfirmed} />);
     }
     
     async function UpdateProduct(){
@@ -31,6 +27,26 @@ export default function Options({productName, productId, positionY}:Properties){
 
         setOptions(null);
     }
+
+    useEffect(() => {
+        async function fetch() {
+            try {
+                if(deleteConfirmed){
+                    await api.delete(`/products/${productId}`);
+
+                    setDeleteConfirmed(false);
+                
+                    await getAllProducts();
+
+                    setOptions(null);
+                }
+            } catch (err) {
+                throw new Error(String(err));
+            }
+        }
+
+        fetch();
+    }, [deleteConfirmed])
 
     return(
         <div

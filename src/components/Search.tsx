@@ -22,8 +22,8 @@ export default function Search({setId, setName}:Properties){
                 <label htmlFor="id-name">Insira o id ou nome do produto.</label>
                 <input type="text" id="id-name" onChange={(e) => setInput(e.target.value)}/>
             </div>
-            <button type="button" onClick={() => submit("id")}>procurar por id</button>
-            <button type="button" onClick={() => submit("name")}>procurar por nome</button>
+            <button className="clickable" type="button" onClick={() => submit("id")}>procurar por id</button>
+            <button className="clickable" type="button" onClick={() => submit("name")}>procurar por nome</button>
         </form>
     );
 }

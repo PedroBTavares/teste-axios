@@ -44,7 +44,7 @@ export default function Table({products, load}:Properties){
                 </thead>
                 <tbody>
                     {load === "loading" ?
-                    <tr><td colSpan={6} ><img src={loadingGif} alt="Carregando..." /></td></tr> :
+                    <tr><td colSpan={6} ><img style={{width: 50}} src={loadingGif} alt="Carregando..." /></td></tr> :
                     products.map((product) => {
                         const {
                             "id": id,
