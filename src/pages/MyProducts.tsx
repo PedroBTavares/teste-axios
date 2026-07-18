@@ -96,7 +96,7 @@ export default function MyProducts(){
         <div>
             <Header />
             <main>
-                <h2>Meus Produtos</h2>
+                <h2>Produtos</h2>
                 <Search setId={setId} setName={setName} />
                 {productsChange && <button onClick={getAllProducts}>Mostrar todos os produtos</button>}
                 <br />
